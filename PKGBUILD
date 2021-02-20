@@ -23,22 +23,13 @@ prepare() {
 }
 
 build() {
-	echo "Build on ${builddir} *"
 	make -C ${builddir}/build
 }
 
 package() {
-	#builddir=${srcdir}/${ziproot}
-	echo "Srcdir ${srcdir} *"
-	echo "Pkgver ${pkgver} *"
-	echo "Pkgname ${pkgname} *"
-	echo "Builddir ${builddir} * "
 	make -C ${builddir}/build   DESTDIR=${pkgdir} install	
 
 	install -d -m 0755 ${pkgdir}/etc/udev/rules.d
-	# srcdir /home/mauro/Progetti/BzTeam/Cards/lettori/acs122u/ACS-Unified-Driver-Lnx-Mac-118-P/src *
-	#        /home/mauro/Progetti/BzTeam/Cards/lettori/acs122u/ACS-Unified-Driver-Lnx-Mac-118-P/src/ACS-Unified-Driver-Lnx-Mac-118-P/acsccid-1.1.8/src/
-	#        /home/mauro/Progetti/BzTeam/Cards/lettori/acs122u/ACS-Unified-Driver-Lnx-Mac-118-P/src/ACS-Unified-Driver-Lnx-Mac-118-P
 	install -m 0644 ${builddir}/${pkgname}-${pkgver}/src/92_pcscd_acsccid.rules ${pkgdir}/etc/udev/rules.d
 }
 
